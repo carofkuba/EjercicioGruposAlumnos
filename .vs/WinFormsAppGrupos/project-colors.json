@@ -1,0 +1,26 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "4ae57b3a-227f-4bd5-8954-4bda18dbc486": {
+      "ProjectGuid": "4ae57b3a-227f-4bd5-8954-4bda18dbc486",
+      "DisplayName": "WinFormsAppGrupos",
+      "ColorIndex": 0
+    },
+    "ebf5ccf3-5d0e-4601-9a54-a7ca2615a829": {
+      "ProjectGuid": "ebf5ccf3-5d0e-4601-9a54-a7ca2615a829",
+      "DisplayName": "WebApplicationGrupos",
+      "ColorIndex": 1
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Archivos varios",
+      "ColorIndex": -1
+    },
+    "96196da2-9729-47d6-977c-43bb5bb65b7c": {
+      "ProjectGuid": "96196da2-9729-47d6-977c-43bb5bb65b7c",
+      "DisplayName": "ClassLibraryGrupos",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}
