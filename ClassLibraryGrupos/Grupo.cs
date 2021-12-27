@@ -24,15 +24,9 @@
             ListaAlumnos.Remove(oAlumno);
         }
 
-        public int ContarAlumnos()
-        {
-            return ListaAlumnos.Count();
-        }
+       
 
-        public List<Alumno> MostrarAlumnos()
-        {
-            return ListaAlumnos;
-        }
+        
 
         
     }

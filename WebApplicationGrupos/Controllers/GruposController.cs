@@ -15,28 +15,20 @@ namespace WebApplicationGrupos.Controllers
         private Aplicacion app = new Aplicacion();
 
 
-
         [HttpPost("insert")]
 
         public IActionResult PostGrupo(Grupo oGrupo)
         {
-            if (oGrupo != null)
-            {
-                bool result = app.InsertGrupo(oGrupo);  //devuelve true
-                return Ok(result);      //este método si el argumento es false, devuelve 200??
-            }
-
-            return BadRequest("Error");
+             bool result = app.InsertGrupo(oGrupo);  
+             return Ok(result);        
         }
 
         [HttpPut("update")]
 
         public IActionResult PutGrupo(Grupo grupo)
         {
-
             app.UpdateGrupo(grupo);
             return Ok();
-
         }
 
 
@@ -46,8 +38,6 @@ namespace WebApplicationGrupos.Controllers
         {
             return Ok(app.GetGrupos());
         }
-
-
 
         [HttpGet("alumnos")]
 
@@ -66,7 +56,7 @@ namespace WebApplicationGrupos.Controllers
 
         [HttpGet("alumnosGrupoSeleccionado/{groupId}")]
 
-        public IActionResult GetAlumnosById(string groupId )
+        public IActionResult GetAlumnosById(string groupId)
 
         {
             Grupo grupo = new Grupo(groupId,"");

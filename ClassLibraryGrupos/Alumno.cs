@@ -6,7 +6,7 @@
         public string Nombre { get; set; }
         public string Apellido { get; set; }
 
-        public bool SinGrupo { get; set; }
+        
 
 
         public override string ToString()

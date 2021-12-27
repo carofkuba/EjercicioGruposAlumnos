@@ -41,7 +41,6 @@
             this.lblGrupos = new System.Windows.Forms.Label();
             this.gbAdministrarGrupos = new System.Windows.Forms.GroupBox();
             this.chkSinGrupo = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.lblAlumnos = new System.Windows.Forms.Label();
             this.btnMostrarAlumnos = new System.Windows.Forms.Button();
             this.btnAgregarAlGrupo = new System.Windows.Forms.Button();
@@ -66,7 +65,6 @@
             this.btnCrearGrupos.TabIndex = 0;
             this.btnCrearGrupos.Text = "Crear Grupos";
             this.btnCrearGrupos.UseVisualStyleBackColor = true;
-            this.btnCrearGrupos.Click += new System.EventHandler(this.btnCrearGrupos_Click);
             // 
             // gbCrearGrupos
             // 
@@ -132,7 +130,6 @@
             this.btnAdministrarGrupos.TabIndex = 2;
             this.btnAdministrarGrupos.Text = "Administrar Grupos";
             this.btnAdministrarGrupos.UseVisualStyleBackColor = true;
-            this.btnAdministrarGrupos.Click += new System.EventHandler(this.btnAdministrarGrupos_Click);
             // 
             // cboGrupos
             // 
@@ -154,7 +151,6 @@
             // gbAdministrarGrupos
             // 
             this.gbAdministrarGrupos.Controls.Add(this.chkSinGrupo);
-            this.gbAdministrarGrupos.Controls.Add(this.button2);
             this.gbAdministrarGrupos.Controls.Add(this.lblAlumnos);
             this.gbAdministrarGrupos.Controls.Add(this.btnMostrarAlumnos);
             this.gbAdministrarGrupos.Controls.Add(this.btnAgregarAlGrupo);
@@ -177,16 +173,6 @@
             this.chkSinGrupo.TabIndex = 11;
             this.chkSinGrupo.Text = "Sin grupo";
             this.chkSinGrupo.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(770, 154);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(162, 34);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Quitar Alumno";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // lblAlumnos
             // 
@@ -311,7 +297,6 @@
         private System.Windows.Forms.ComboBox cboGrupos;
         private System.Windows.Forms.Label lblGrupos;
         private System.Windows.Forms.GroupBox gbAdministrarGrupos;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lblAlumnos;
         private System.Windows.Forms.Button btnMostrarAlumnos;
         private System.Windows.Forms.Button btnAgregarAlGrupo;

@@ -9,15 +9,15 @@ namespace WinFormsAppGrupos
 {
     internal class Cliente
     {
-        private readonly HttpClient httpClient; //It is recommended to instantiate one HttpClient for your application's lifetime and share it
+        private readonly HttpClient httpClient; 
         private static Cliente nuevoCliente;
 
-        private  Cliente()                          //cada vez que se hace un Cliente, se crea un HttpClient
+        private  Cliente()                          
         {
             httpClient = new HttpClient();
         }
 
-        public static Cliente GetCliente()      // obtiene una única instancia de Cliente, es estático, no es necesario instanciarla
+        public static Cliente GetCliente()      
         {
             if (nuevoCliente == null)
             {

@@ -14,7 +14,6 @@ namespace ClassLibraryGrupos
 
         public bool InsertGrupo(Grupo oGrupo)
         {
-
             return dao.InsertGrupo(oGrupo);
         }
 
@@ -26,28 +25,25 @@ namespace ClassLibraryGrupos
 
         public List<Grupo> GetGrupos()
         {
-
-
             return dao.GetGrupos();
         }
 
-        
-
         public List<Alumno> GetAlumnos()
         {
-
-
-            return dao.GetAlumnosEnList(dao.GetTablaEnDataTable("Alumnos"));
+            DataTable tabla = dao.GetTablaEnDataTable("Alumnos");
+            return dao.GetAlumnosEnList(tabla);
         }
 
         public List<Alumno> GetAlumnosSinGrupo()
         {
-            return dao.GetAlumnosEnList(dao.GetAlumnosSinGrupo());
+            DataTable tabla = dao.GetAlumnosSinGrupo();
+            return dao.GetAlumnosEnList(tabla);
         }
 
         public List<Alumno> GetAlumnosById(Grupo grupo)
         {
-            return dao.GetAlumnosEnList(dao.GetAlumnosById(grupo));
+            DataTable tabla = dao.GetAlumnosById(grupo);
+            return dao.GetAlumnosEnList(tabla);
         }
 
     }

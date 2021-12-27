@@ -22,16 +22,7 @@ namespace WinFormsAppGrupos
 
         private async void FrmAdminGrupos_Load(object sender, EventArgs e)
         {
-
-            await this.CargarComboBox();
-
-            
-            
-        }
-
-        private void btnCrearGrupos_Click(object sender, EventArgs e)
-        {
-            
+            await this.CargarComboBox();  
         }
 
         private async void btnCrearGrupo_Click(object sender, EventArgs e)
@@ -54,26 +45,77 @@ namespace WinFormsAppGrupos
 
         }
 
+        private async void btnMostrarAlumnos_Click(object sender, EventArgs e)
+        {
+
+            if (chkSinGrupo.Checked)
+            {
+                await this.CargarListBoxConAlumnosSinGrupo();
+            }
+
+            else
+            {
+
+                Grupo nuevoGrupo = (Grupo)cboGrupos.SelectedItem;
+
+                await this.CargarListBoxConAlumnosPorGrupo(nuevoGrupo);
+            }
+
+            
+
+
+
+        }
+
+        private async void btnAgregarAlGrupo_Click(object sender, EventArgs e)
+        {
+            Grupo grupoSeleccionado = (Grupo)cboGrupos.SelectedItem;
+
+            Alumno alumnoSeleccionado = (Alumno)lstAlumnos.SelectedItem;
+
+            grupoSeleccionado.AgregarAlumno((Alumno)lstAlumnos.SelectedItem);
+
+
+            await PutGrupoAsync(grupoSeleccionado);
+
+            MessageBox.Show("Agregado con éxito");
+
+        }
+
+        private async void btnListarGrupos_Click(object sender, EventArgs e)
+        {
+            string url = "https://localhost:7139/api/Grupos/grupos";
+            var content = await Cliente.GetCliente().GetAsync(url);
+
+            List<Grupo> listaGrupos = JsonConvert.DeserializeObject<List<Grupo>>(content);
+
+            dgvListarGrupos.DataSource = listaGrupos;
+
+
+
+        }
+
         private async Task<bool> PostGrupoAsync(Grupo oGrupo)
         {
 
-            string url = "https://localhost:7139/api/Grupos/insert";    //controller
+            string url = "https://localhost:7139/api/Grupos/insert";    
 
-            string json = JsonConvert.SerializeObject(oGrupo);          //convierte el objeto en un json
+            string json = JsonConvert.SerializeObject(oGrupo);          
 
-            var response = await Cliente.GetCliente().PostAsync(url, json); //ese json lo manda por http
-                                                                            //este método devuelve un string!
-
-            return response.Equals("true"); // si la response es igual a "true", devuelve "true".
+            var response = await Cliente.GetCliente().PostAsync(url, json); 
+                                                                           
+            return response.Equals("true"); 
         }
-
-      
-
-        private async void btnAdministrarGrupos_Click(object sender, EventArgs e)
+        private async Task<bool> PutGrupoAsync(Grupo grupo)
         {
-            
 
-            
+            string url = "https://localhost:7139/api/Grupos/update";    
+
+            string json = JsonConvert.SerializeObject(grupo);         
+
+            var response = await Cliente.GetCliente().PutAsync(url, json); 
+
+            return response.Equals("true"); 
         }
 
         private async Task CargarComboBox()
@@ -113,12 +155,10 @@ namespace WinFormsAppGrupos
 
         }
 
-       
-
         private async Task CargarListBoxConAlumnosPorGrupo(Grupo grupo)
         {
             string groupId = grupo.Codigo;
-            string url = "https://localhost:7139/api/Grupos/alumnosGrupoSeleccionado/ ";
+            string url = "https://localhost:7139/api/Grupos/alumnosGrupoSeleccionado/";
             url = url + grupo.Codigo;
             var content = await Cliente.GetCliente().GetAsync(url);
 
@@ -129,83 +169,7 @@ namespace WinFormsAppGrupos
 
         }
 
-        private async void btnMostrarAlumnos_Click(object sender, EventArgs e)
-        {
-
-            if (chkSinGrupo.Checked)
-            {
-                await this.CargarListBoxConAlumnosSinGrupo();
-            }
-
-            if (chkSinGrupo.Checked == false && cboGrupos.SelectedItem != null)
-            {
-                Grupo nuevoGrupo = (Grupo)cboGrupos.SelectedItem;
-
-                await this.CargarListBoxConAlumnosPorGrupo(nuevoGrupo);
-            }
-
-            else
-            {
-
-                await this.CargarListBoxConTodosLosAlumnos();
-            }
-
-
-
-        }
-
-        private async void btnAgregarAlGrupo_Click(object sender, EventArgs e)
-        {
-            Grupo grupoSeleccionado = (Grupo)cboGrupos.SelectedItem;
-
-            Alumno alumnoSeleccionado = (Alumno)lstAlumnos.SelectedItem;
-
-            grupoSeleccionado.AgregarAlumno((Alumno)lstAlumnos.SelectedItem);
-
-            
-            await PutGrupoAsync(grupoSeleccionado);
-
-            MessageBox.Show("Agregado con éxito"); 
-       
-        }
-
-
-
-        private async Task<bool> PutGrupoAsync(Grupo grupo)
-        {
-
-            string url = "https://localhost:7139/api/Grupos/update";    
-
-            string json = JsonConvert.SerializeObject(grupo);          //convierte el objeto en un json
-
-            var response = await Cliente.GetCliente().PutAsync(url, json); //ese json lo manda por http
-                                                                            //este método devuelve un string!
-
-            return response.Equals("true"); // si la response es igual a "true", devuelve "true".
-        }
-
 
         
-      
-     
-
-
-        private async void btnListarGrupos_Click(object sender, EventArgs e)
-        {
-            string url = "https://localhost:7139/api/Grupos/grupos";
-            var content = await Cliente.GetCliente().GetAsync(url);
-
-            List<Grupo> listaGrupos = JsonConvert.DeserializeObject<List<Grupo>>(content);
-
-            dgvListarGrupos.DataSource = listaGrupos;
-           
-            
-
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

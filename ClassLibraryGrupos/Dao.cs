@@ -28,13 +28,14 @@ namespace ClassLibraryGrupos
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
 
+            cnn.Open();
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandText = "sp_InsertGrupo";
 
             cmd.Parameters.AddWithValue("@codigo", oGrupo.Codigo);
             cmd.Parameters.AddWithValue("@nombre", oGrupo.Nombre);
 
-            cnn.Open();
+            
             int rowsAffected = cmd.ExecuteNonQuery();
 
             cnn.Close();
@@ -68,9 +69,10 @@ namespace ClassLibraryGrupos
 
         }
 
-        public List<Alumno> GetAlumnos()
+       
+        public List<Alumno> GetAlumnosEnList(DataTable tabla)
         {
-            DataTable tabla = GetTablaEnDataTable("Alumnos");
+
             List<Alumno> listaAlumnos = new List<Alumno>();
 
             foreach (DataRow row in tabla.Rows)
@@ -88,6 +90,7 @@ namespace ClassLibraryGrupos
             return listaAlumnos;
 
         }
+
 
         public DataTable GetTablaEnDataTable(string nombreTabla)
         {
@@ -158,29 +161,6 @@ namespace ClassLibraryGrupos
             return tabla;
         }
 
-        public List<Alumno> GetAlumnosEnList(DataTable tabla)
-        {
-            
-            List<Alumno> listaAlumnos = new List<Alumno>();
-
-            foreach (DataRow row in tabla.Rows)
-            {
-                Alumno oAlumno = new Alumno();
-
-                oAlumno.Legajo = Convert.ToInt32(row[0].ToString());
-                oAlumno.Nombre = row[1].ToString();
-                oAlumno.Apellido = row[2].ToString();
-
-                listaAlumnos.Add(oAlumno);
-
-            }
-
-            return listaAlumnos;
-
-        }
-
-
-
         public void UpdateGrupoDeAlumno(Grupo grupo)
         {
 
@@ -196,7 +176,7 @@ namespace ClassLibraryGrupos
             cmd.CommandText = "sp_updateTablaAlumnos";
 
         
-            foreach(Alumno alumno in grupo.ListaAlumnos)        //ACÁ ESTÁ EL LINK ENTRE LAS TABLAS!!!!!!!!
+            foreach(Alumno alumno in grupo.ListaAlumnos)        
             {
                 cmd.Parameters.AddWithValue("@codigoGrupo", grupo.Codigo);
                 cmd.Parameters.AddWithValue("@legajoAlumno", alumno.Legajo);
