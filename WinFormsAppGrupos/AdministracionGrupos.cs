@@ -31,34 +31,52 @@ namespace WinFormsAppGrupos
             await this.CargarDataGridView();
         }
 
-        private async void btnCrearGrupo_Click(object sender, EventArgs e)
+        private async void btnCrearGrupo_Click(object sender, EventArgs e) 
         {
-            if (txtCodigoGrupo.Text == "" || txtNombreGrupo.Text == "")
+            string codigoGrupo = txtCodigoGrupo.Text;
+            string nombreGrupo = txtNombreGrupo.Text;
+
+
+            if (string.IsNullOrEmpty(codigoGrupo) || string.IsNullOrEmpty(nombreGrupo))
             {
                 MessageBox.Show("Debe ingresar un código y un nombre", "Advertencia", MessageBoxButtons.OK);
             }
             else
             {
-                string codigoGrupo = txtCodigoGrupo.Text;
-                string nombreGrupo = txtNombreGrupo.Text;
-
-                Grupo nuevoGrupo = new Grupo(codigoGrupo, nombreGrupo);
-
-                bool insertExitoso = await PostGrupoAsync(nuevoGrupo);
-
-                if (insertExitoso)
+                if (await ValidarSiGrupoExiste(codigoGrupo))
                 {
-                    MessageBox.Show("Grupo creado");
 
-                }
-                else
-                {
-                    MessageBox.Show("Error");
-                }
+                    Grupo nuevoGrupo = new Grupo(codigoGrupo, nombreGrupo);
 
+                    bool insertExitoso = await PostGrupoAsync(nuevoGrupo);
+
+                    if (insertExitoso)
+                    {
+                        await this.CargarComboBox();
+                        MessageBox.Show("Grupo creado");
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error");
+                    }
+                }
             }
+        }
 
+        private async Task<bool> ValidarSiGrupoExiste(string codigoGrupo)
+        {
+            List<Grupo> listaGrupos = await DevolverGrupos();
 
+            foreach(var grupo in listaGrupos)
+            {
+                if (grupo.Codigo.Equals(codigoGrupo))
+                {
+                    MessageBox.Show("El código ya existe");
+                    return false;
+                }
+            }
+            return true;
         }
 
         private async void btnMostrarAlumnos_Click(object sender, EventArgs e)
@@ -107,14 +125,22 @@ namespace WinFormsAppGrupos
 
         private async void btnListarGrupos_Click(object sender, EventArgs e)
         {
-            string url = "https://localhost:7139/api/Grupos/grupos";
-            var content = await Cliente.GetCliente().GetAsync(url);
 
-            List<Grupo> listaGrupos = JsonConvert.DeserializeObject<List<Grupo>>(content);
+            List<Grupo> listaGrupos = await DevolverGrupos();
 
             dgvListarGrupos.DataSource = listaGrupos;
 
         }
+
+        private async Task CargarComboBox()
+        {
+            List<Grupo> listaGrupos = await DevolverGrupos();
+
+            cboGrupos.DataSource = listaGrupos;
+            cboGrupos.DisplayMember = "nombre";
+        }
+
+
 
         private async Task<bool> PostGrupoAsync(Grupo oGrupo)
         {
@@ -139,18 +165,16 @@ namespace WinFormsAppGrupos
             return response.Equals("true"); 
         }
 
-        private async Task CargarComboBox()
+        private async Task<List<Grupo>> DevolverGrupos()
         {
             string url = "https://localhost:7139/api/Grupos/grupos";
             var content = await Cliente.GetCliente().GetAsync(url);
 
             List<Grupo> listaGrupos = JsonConvert.DeserializeObject<List<Grupo>>(content);
 
-
-            cboGrupos.DataSource = listaGrupos;
-            cboGrupos.DisplayMember = "nombre";
-            
+            return listaGrupos; 
         }
+
 
         private async Task CargarListBoxConTodosLosAlumnos()
         {
@@ -243,14 +267,6 @@ namespace WinFormsAppGrupos
            
         }
 
-        private void gbCrearGrupos_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCodigoGrupo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }
