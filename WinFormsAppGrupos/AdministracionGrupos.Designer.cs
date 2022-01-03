@@ -28,14 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnCrearGrupos = new System.Windows.Forms.Button();
             this.gbCrearGrupos = new System.Windows.Forms.GroupBox();
             this.btnCrearGrupo = new System.Windows.Forms.Button();
             this.txtCodigoGrupo = new System.Windows.Forms.TextBox();
             this.lblCodigoGrupo = new System.Windows.Forms.Label();
             this.txtNombreGrupo = new System.Windows.Forms.TextBox();
             this.lblNombreGrupo = new System.Windows.Forms.Label();
-            this.btnAdministrarGrupos = new System.Windows.Forms.Button();
             this.cboGrupos = new System.Windows.Forms.ComboBox();
             this.lblGrupos = new System.Windows.Forms.Label();
             this.gbAdministrarGrupos = new System.Windows.Forms.GroupBox();
@@ -44,7 +42,6 @@
             this.btnMostrarAlumnos = new System.Windows.Forms.Button();
             this.btnAgregarAlGrupo = new System.Windows.Forms.Button();
             this.lstAlumnos = new System.Windows.Forms.ListBox();
-            this.btnVerInfoGrupos = new System.Windows.Forms.Button();
             this.gbVerInfoGrupos = new System.Windows.Forms.GroupBox();
             this.btnListarGrupos = new System.Windows.Forms.Button();
             this.dgvListarGrupos = new System.Windows.Forms.DataGridView();
@@ -57,15 +54,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvListarGrupos)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnCrearGrupos
-            // 
-            this.btnCrearGrupos.Location = new System.Drawing.Point(29, 112);
-            this.btnCrearGrupos.Name = "btnCrearGrupos";
-            this.btnCrearGrupos.Size = new System.Drawing.Size(186, 54);
-            this.btnCrearGrupos.TabIndex = 0;
-            this.btnCrearGrupos.Text = "Crear Grupos";
-            this.btnCrearGrupos.UseVisualStyleBackColor = true;
-            // 
             // gbCrearGrupos
             // 
             this.gbCrearGrupos.Controls.Add(this.btnCrearGrupo);
@@ -73,7 +61,7 @@
             this.gbCrearGrupos.Controls.Add(this.lblCodigoGrupo);
             this.gbCrearGrupos.Controls.Add(this.txtNombreGrupo);
             this.gbCrearGrupos.Controls.Add(this.lblNombreGrupo);
-            this.gbCrearGrupos.Location = new System.Drawing.Point(289, 23);
+            this.gbCrearGrupos.Location = new System.Drawing.Point(34, 32);
             this.gbCrearGrupos.Name = "gbCrearGrupos";
             this.gbCrearGrupos.Size = new System.Drawing.Size(968, 219);
             this.gbCrearGrupos.TabIndex = 1;
@@ -97,6 +85,7 @@
             this.txtCodigoGrupo.Name = "txtCodigoGrupo";
             this.txtCodigoGrupo.Size = new System.Drawing.Size(208, 31);
             this.txtCodigoGrupo.TabIndex = 3;
+            this.txtCodigoGrupo.TextChanged += new System.EventHandler(this.txtCodigoGrupo_TextChanged);
             // 
             // lblCodigoGrupo
             // 
@@ -122,15 +111,6 @@
             this.lblNombreGrupo.Size = new System.Drawing.Size(166, 25);
             this.lblNombreGrupo.TabIndex = 0;
             this.lblNombreGrupo.Text = "Nombre del Grupo:";
-            // 
-            // btnAdministrarGrupos
-            // 
-            this.btnAdministrarGrupos.Location = new System.Drawing.Point(29, 206);
-            this.btnAdministrarGrupos.Name = "btnAdministrarGrupos";
-            this.btnAdministrarGrupos.Size = new System.Drawing.Size(186, 52);
-            this.btnAdministrarGrupos.TabIndex = 2;
-            this.btnAdministrarGrupos.Text = "Administrar Grupos";
-            this.btnAdministrarGrupos.UseVisualStyleBackColor = true;
             // 
             // cboGrupos
             // 
@@ -158,7 +138,7 @@
             this.gbAdministrarGrupos.Controls.Add(this.lstAlumnos);
             this.gbAdministrarGrupos.Controls.Add(this.cboGrupos);
             this.gbAdministrarGrupos.Controls.Add(this.lblGrupos);
-            this.gbAdministrarGrupos.Location = new System.Drawing.Point(289, 261);
+            this.gbAdministrarGrupos.Location = new System.Drawing.Point(34, 270);
             this.gbAdministrarGrupos.Name = "gbAdministrarGrupos";
             this.gbAdministrarGrupos.Size = new System.Drawing.Size(968, 380);
             this.gbAdministrarGrupos.TabIndex = 6;
@@ -213,20 +193,11 @@
             this.lstAlumnos.Size = new System.Drawing.Size(413, 279);
             this.lstAlumnos.TabIndex = 6;
             // 
-            // btnVerInfoGrupos
-            // 
-            this.btnVerInfoGrupos.Location = new System.Drawing.Point(29, 299);
-            this.btnVerInfoGrupos.Name = "btnVerInfoGrupos";
-            this.btnVerInfoGrupos.Size = new System.Drawing.Size(186, 53);
-            this.btnVerInfoGrupos.TabIndex = 7;
-            this.btnVerInfoGrupos.Text = "Ver Info Grupos";
-            this.btnVerInfoGrupos.UseVisualStyleBackColor = true;
-            // 
             // gbVerInfoGrupos
             // 
             this.gbVerInfoGrupos.Controls.Add(this.btnListarGrupos);
             this.gbVerInfoGrupos.Controls.Add(this.dgvListarGrupos);
-            this.gbVerInfoGrupos.Location = new System.Drawing.Point(289, 663);
+            this.gbVerInfoGrupos.Location = new System.Drawing.Point(34, 672);
             this.gbVerInfoGrupos.Name = "gbVerInfoGrupos";
             this.gbVerInfoGrupos.Size = new System.Drawing.Size(968, 348);
             this.gbVerInfoGrupos.TabIndex = 8;
@@ -290,13 +261,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1296, 1042);
+            this.ClientSize = new System.Drawing.Size(1041, 1042);
             this.Controls.Add(this.gbVerInfoGrupos);
-            this.Controls.Add(this.btnVerInfoGrupos);
             this.Controls.Add(this.gbAdministrarGrupos);
-            this.Controls.Add(this.btnAdministrarGrupos);
             this.Controls.Add(this.gbCrearGrupos);
-            this.Controls.Add(this.btnCrearGrupos);
             this.Name = "FrmAdminGrupos";
             this.Text = "Administración de Grupos";
             this.Load += new System.EventHandler(this.FrmAdminGrupos_Load);
@@ -311,15 +279,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnCrearGrupos;
         private System.Windows.Forms.GroupBox gbCrearGrupos;
         private System.Windows.Forms.Button btnCrearGrupo;
         private System.Windows.Forms.TextBox txtCodigoGrupo;
         private System.Windows.Forms.Label lblCodigoGrupo;
         private System.Windows.Forms.TextBox txtNombreGrupo;
         private System.Windows.Forms.Label lblNombreGrupo;
-        private System.Windows.Forms.Button btnAdministrarGrupos;
         private System.Windows.Forms.ComboBox cboGrupos;
         private System.Windows.Forms.Label lblGrupos;
         private System.Windows.Forms.GroupBox gbAdministrarGrupos;
@@ -328,7 +293,6 @@
         private System.Windows.Forms.Button btnAgregarAlGrupo;
         private System.Windows.Forms.ListBox lstAlumnos;
         private System.Windows.Forms.CheckBox chkSinGrupo;
-        private System.Windows.Forms.Button btnVerInfoGrupos;
         private System.Windows.Forms.GroupBox gbVerInfoGrupos;
         private System.Windows.Forms.DataGridView dgvListarGrupos;
         private System.Windows.Forms.Button btnListarGrupos;

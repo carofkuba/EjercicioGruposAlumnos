@@ -24,3 +24,4 @@ C:\Users\carof\source\repos\WinFormsAppGrupos\WinFormsAppGrupos\obj\Debug\net6.0
 C:\Users\carof\source\repos\WinFormsAppGrupos\WinFormsAppGrupos\obj\Debug\net6.0-windows\ref\WinFormsAppGrupos.dll
 C:\Users\carof\source\repos\WinFormsAppGrupos\WinFormsAppGrupos\obj\Debug\net6.0-windows\WinFormsAppGrupos.pdb
 C:\Users\carof\source\repos\WinFormsAppGrupos\WinFormsAppGrupos\obj\Debug\net6.0-windows\WinFormsAppGrupos.genruntimeconfig.cache
+C:\Users\carof\source\repos\WinFormsAppGrupos\WinFormsAppGrupos\obj\Debug\net6.0-windows\WinFormsAppGrupos.csproj.AssemblyReference.cache

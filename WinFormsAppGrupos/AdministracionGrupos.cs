@@ -33,22 +33,31 @@ namespace WinFormsAppGrupos
 
         private async void btnCrearGrupo_Click(object sender, EventArgs e)
         {
-            string codigoGrupo = txtCodigoGrupo.Text;
-            string nombreGrupo = txtNombreGrupo.Text;
-
-            Grupo nuevoGrupo = new Grupo(codigoGrupo, nombreGrupo);
-
-            bool insertExitoso = await PostGrupoAsync(nuevoGrupo);
-
-            if (insertExitoso)
+            if (txtCodigoGrupo.Text == "" || txtNombreGrupo.Text == "")
             {
-                MessageBox.Show("Grupo creado");
-                
+                MessageBox.Show("Debe ingresar un código y un nombre", "Advertencia", MessageBoxButtons.OK);
             }
             else
             {
-                MessageBox.Show("Error");
+                string codigoGrupo = txtCodigoGrupo.Text;
+                string nombreGrupo = txtNombreGrupo.Text;
+
+                Grupo nuevoGrupo = new Grupo(codigoGrupo, nombreGrupo);
+
+                bool insertExitoso = await PostGrupoAsync(nuevoGrupo);
+
+                if (insertExitoso)
+                {
+                    MessageBox.Show("Grupo creado");
+
+                }
+                else
+                {
+                    MessageBox.Show("Error");
+                }
+
             }
+
 
         }
 
@@ -59,24 +68,19 @@ namespace WinFormsAppGrupos
             {
                 await this.CargarListBoxConAlumnosSinGrupo();
             }
-
-
-            //if(cboGrupos.SelectedItem == null)
-            //{
-            //    await this.CargarListBoxConTodosLosAlumnos();
-            //}
-
-            //else
-            //{
-
-            //    Grupo nuevoGrupo = (Grupo)cboGrupos.SelectedItem;
-
-            //    await this.CargarListBoxConAlumnosPorGrupo(nuevoGrupo);
-            //}
-
-            
-
-
+            else
+            {
+                if (cboGrupos.SelectedItem == null)
+                {
+                    await this.CargarListBoxConTodosLosAlumnos();
+                }
+                else
+                {
+                    await this.CargarListBoxConAlumnosPorGrupo();
+                        
+                }
+                
+            }
 
         }
 
@@ -172,21 +176,46 @@ namespace WinFormsAppGrupos
 
         }
 
-        private async Task CargarListBoxConAlumnosPorGrupo(Grupo grupo)
+        //private async Task CargarListBoxConAlumnosPorGrupo(Grupo grupo)
+        //{
+        //    string groupId = grupo.Codigo;
+        //    string url = "https://localhost:7139/api/Grupos/alumnosGrupoSeleccionado/";
+        //    url = url + grupo.Codigo;
+        //    var content = await Cliente.GetCliente().GetAsync(url);
+
+        //    List<Alumno> listaAlumnos = JsonConvert.DeserializeObject<List<Alumno>>(content);
+
+        //    lstAlumnos.DataSource = listaAlumnos;
+        //    lstAlumnos.DisplayMember = listaAlumnos.ToString();
+
+        //
+
+
+
+        private async Task CargarListBoxConAlumnosPorGrupo()
         {
-            string groupId = grupo.Codigo;
-            string url = "https://localhost:7139/api/Grupos/alumnosGrupoSeleccionado/";
-            url = url + grupo.Codigo;
+            string url = "https://localhost:7139/api/Grupos/gruposAlumnos";
             var content = await Cliente.GetCliente().GetAsync(url);
 
-            List<Alumno> listaAlumnos = JsonConvert.DeserializeObject<List<Alumno>>(content);
+            List<Grupo> listaGruposYAlumnos = JsonConvert.DeserializeObject<List<Grupo>>(content);
 
-            lstAlumnos.DataSource = listaAlumnos;
-            lstAlumnos.DisplayMember = listaAlumnos.ToString();
+            Grupo nuevoGrupo = (Grupo)cboGrupos.SelectedItem;
+            string codigoGrupo = nuevoGrupo.Codigo;
+
+            foreach(var grupo in listaGruposYAlumnos)
+            {
+                if (grupo.Codigo == codigoGrupo)
+                {
+                    List<Alumno> listaAlumnos = grupo.ListaAlumnos;
+                    lstAlumnos.DataSource = listaAlumnos;
+                    lstAlumnos.DisplayMember = listaAlumnos.ToString();
+                }
+            }
+            
+            
 
         }
-
-       private async Task CargarDataGridView()
+        private async Task CargarDataGridView()
         {
             string url = "https://localhost:7139/api/Grupos/gruposAlumnos";
             var content = await Cliente.GetCliente().GetAsync(url);
@@ -200,9 +229,12 @@ namespace WinFormsAppGrupos
 
             }
         }
-        
-        
-        
+
+      
+
+
+
+
         private async void dgvListarGrupos_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -212,6 +244,11 @@ namespace WinFormsAppGrupos
         }
 
         private void gbCrearGrupos_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCodigoGrupo_TextChanged(object sender, EventArgs e)
         {
 
         }
