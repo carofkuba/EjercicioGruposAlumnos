@@ -1,4 +1,3 @@
-C:\Users\carof\source\repos\WinFormsAppGrupos\WinFormsAppGrupos\obj\Debug\net6.0-windows\WinFormsAppGrupos.csproj.AssemblyReference.cache
 C:\Users\carof\source\repos\WinFormsAppGrupos\WinFormsAppGrupos\obj\Debug\net6.0-windows\WinFormsAppGrupos.FrmAdminGrupos.resources
 C:\Users\carof\source\repos\WinFormsAppGrupos\WinFormsAppGrupos\obj\Debug\net6.0-windows\WinFormsAppGrupos.csproj.GenerateResource.cache
 C:\Users\carof\source\repos\WinFormsAppGrupos\WinFormsAppGrupos\obj\Debug\net6.0-windows\WinFormsAppGrupos.GeneratedMSBuildEditorConfig.editorconfig

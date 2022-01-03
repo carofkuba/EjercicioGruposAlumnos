@@ -32,4 +32,3 @@ C:\Users\carof\source\repos\WinFormsAppGrupos\WebApplicationGrupos\obj\Debug\net
 C:\Users\carof\source\repos\WinFormsAppGrupos\WebApplicationGrupos\obj\Debug\net6.0\ref\WebApplicationGrupos.dll
 C:\Users\carof\source\repos\WinFormsAppGrupos\WebApplicationGrupos\obj\Debug\net6.0\WebApplicationGrupos.pdb
 C:\Users\carof\source\repos\WinFormsAppGrupos\WebApplicationGrupos\obj\Debug\net6.0\WebApplicationGrupos.genruntimeconfig.cache
-C:\Users\carof\source\repos\WinFormsAppGrupos\WebApplicationGrupos\obj\Debug\net6.0\WebApplicationGrupos.csproj.AssemblyReference.cache

@@ -9,4 +9,3 @@ C:\Users\carof\source\repos\WinFormsAppGrupos\ClassLibraryGrupos\bin\Debug\net6.
 C:\Users\carof\source\repos\WinFormsAppGrupos\ClassLibraryGrupos\obj\Debug\net6.0\ClassLibraryGrupos.dll
 C:\Users\carof\source\repos\WinFormsAppGrupos\ClassLibraryGrupos\obj\Debug\net6.0\ref\ClassLibraryGrupos.dll
 C:\Users\carof\source\repos\WinFormsAppGrupos\ClassLibraryGrupos\obj\Debug\net6.0\ClassLibraryGrupos.pdb
-C:\Users\carof\source\repos\WinFormsAppGrupos\ClassLibraryGrupos\obj\Debug\net6.0\ClassLibraryGrupos.csproj.AssemblyReference.cache

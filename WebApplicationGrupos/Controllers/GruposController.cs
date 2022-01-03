@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ClassLibraryGrupos;
 using System.Data;
+using ClassLibraryGrupos;
 
 
 
@@ -37,6 +37,13 @@ namespace WebApplicationGrupos.Controllers
         public IActionResult GetGrupos()
         {
             return Ok(app.GetGrupos());
+        }
+
+        [HttpGet("gruposAlumnos")]
+
+        public IActionResult GetGruposConAlumnos()
+        {
+            return Ok(app.GetGruposConAlumnos());
         }
 
         [HttpGet("alumnos")]

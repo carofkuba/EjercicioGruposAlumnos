@@ -6,6 +6,8 @@
         public string Nombre { get; set; }
         public List<Alumno> ListaAlumnos { get; set; }
 
+        
+
         public Grupo(string codigo, string nombre)
         {
             Codigo = codigo;
@@ -19,10 +21,12 @@
 
         }
 
-        public void QuitarAlumno(Alumno oAlumno)
+        public int ContarAlumnosEnLista()
         {
-            ListaAlumnos.Remove(oAlumno);
+           return ListaAlumnos.Count();
         }
+
+        
 
        
 

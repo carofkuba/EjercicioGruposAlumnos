@@ -11,10 +11,16 @@ namespace ClassLibraryGrupos
     public class Dao
     {
         SqlConnection cnn = null;
-        string connectionString;
-        public Dao()
+        string connectionString = @"Data Source=LAPTOP-PHJ31ERV\SQLEXPRESS;Initial Catalog=Escuela;Integrated Security=True";
+        
+
+        private SqlConnection GetSqlConnectionSingleton()
         {
-            connectionString = @"Data Source=LAPTOP-PHJ31ERV\SQLEXPRESS;Initial Catalog=Escuela;Integrated Security=True";
+            if(cnn == null)
+            {
+                cnn = new SqlConnection(connectionString);
+            }
+            return cnn;
         }
 
         
@@ -22,8 +28,7 @@ namespace ClassLibraryGrupos
         public bool InsertGrupo(Grupo oGrupo)
         {
 
-            cnn = new SqlConnection();
-            cnn.ConnectionString = connectionString;
+            cnn = GetSqlConnectionSingleton();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = cnn;
@@ -51,25 +56,96 @@ namespace ClassLibraryGrupos
         public List<Grupo> GetGrupos()
         {
             DataTable tabla = GetTablaEnDataTable("Grupos");
+
             List<Grupo> listaGrupos = new List<Grupo>();
 
-            foreach(DataRow row in tabla.Rows)
+            foreach (DataRow row in tabla.Rows)
             {
-                
-                string codigo = row[0].ToString();
-                string nombre = row[1].ToString();
-
-                Grupo oGrupo = new Grupo(codigo, nombre);
-
-                listaGrupos.Add(oGrupo);
-
+                Grupo nuevoGrupo = new Grupo(row[0].ToString(), row[1].ToString());
+                listaGrupos.Add(nuevoGrupo);
             }
 
             return listaGrupos;
 
+
+
         }
 
-       
+
+        public List<Grupo> GetGruposConAlumnos()
+        {
+            List<Grupo> listaGrupos = new List<Grupo>();
+            listaGrupos = GetGrupos();
+
+            foreach(var grupo in listaGrupos)
+            {
+                string codigoGrupo = grupo.Codigo;
+
+                DataTable tabla = GetSPConParamEntrada("sp_AlumnosPorGrupo", "@codigoGrupo", codigoGrupo);
+
+                foreach(DataRow row in tabla.Rows)
+                {
+
+                    if (!row[0].Equals(DBNull.Value)) {
+
+                        Alumno nuevoAlumno = new Alumno();
+                        nuevoAlumno.Legajo = Convert.ToInt32(row[0].ToString());
+                        nuevoAlumno.Nombre = row[1].ToString();
+                        nuevoAlumno.Apellido = row[2].ToString();
+
+                        grupo.AgregarAlumno(nuevoAlumno);
+
+                    } 
+                }
+            }
+            return listaGrupos;
+        }
+
+        public DataTable GetSPConParamEntrada(string SP, string param, string valorParamEnt)
+        {
+            cnn = GetSqlConnectionSingleton();
+
+            SqlCommand cmd = new SqlCommand();
+
+            cnn.Open();
+
+            cmd.Connection = cnn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = SP;
+
+            cmd.Parameters.AddWithValue(param, valorParamEnt);
+
+            DataTable tabla = new DataTable();
+            tabla.Load(cmd.ExecuteReader());
+
+            cnn.Close();
+
+            return tabla;
+        }
+
+        public DataTable GetSP(string SP)
+        {
+            cnn = GetSqlConnectionSingleton();
+
+            SqlCommand cmd = new SqlCommand();
+
+            cnn.Open();
+
+            cmd.Connection = cnn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandText = SP;
+
+           
+
+            DataTable tabla = new DataTable();
+            tabla.Load(cmd.ExecuteReader());
+
+            cnn.Close();
+
+            return tabla;
+        }
+
+
         public List<Alumno> GetAlumnosEnList(DataTable tabla)
         {
 
@@ -95,8 +171,7 @@ namespace ClassLibraryGrupos
         public DataTable GetTablaEnDataTable(string nombreTabla)
         {
 
-            cnn = new SqlConnection();
-            cnn.ConnectionString = connectionString;
+            cnn = GetSqlConnectionSingleton();
 
             string query = "select * from " + nombreTabla;
 
@@ -118,8 +193,7 @@ namespace ClassLibraryGrupos
         public DataTable GetAlumnosSinGrupo()
         {
 
-            cnn = new SqlConnection();
-            cnn.ConnectionString = connectionString;
+            cnn = GetSqlConnectionSingleton();
 
             string query = "select * from Alumnos where grupo is null";
 
@@ -140,8 +214,7 @@ namespace ClassLibraryGrupos
 
         public DataTable GetAlumnosById(Grupo grupo)
         {
-            cnn = new SqlConnection();
-            cnn.ConnectionString = connectionString;
+            cnn = GetSqlConnectionSingleton();
 
             SqlCommand cmd = new SqlCommand();
 
@@ -164,8 +237,7 @@ namespace ClassLibraryGrupos
         public void UpdateGrupoDeAlumno(Grupo grupo)
         {
 
-            cnn = new SqlConnection();
-            cnn.ConnectionString = connectionString;
+            cnn = GetSqlConnectionSingleton();
 
             SqlCommand cmd = new SqlCommand();
 

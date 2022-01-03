@@ -11,10 +11,15 @@ using Newtonsoft.Json;
 using ClassLibraryGrupos;
 
 
+
+
 namespace WinFormsAppGrupos
 {
     public partial class FrmAdminGrupos : Form
     {
+
+        
+        
         public FrmAdminGrupos()
         {
             InitializeComponent();
@@ -22,7 +27,8 @@ namespace WinFormsAppGrupos
 
         private async void FrmAdminGrupos_Load(object sender, EventArgs e)
         {
-            await this.CargarComboBox();  
+            await this.CargarComboBox();
+            await this.CargarDataGridView();
         }
 
         private async void btnCrearGrupo_Click(object sender, EventArgs e)
@@ -37,6 +43,7 @@ namespace WinFormsAppGrupos
             if (insertExitoso)
             {
                 MessageBox.Show("Grupo creado");
+                
             }
             else
             {
@@ -53,13 +60,19 @@ namespace WinFormsAppGrupos
                 await this.CargarListBoxConAlumnosSinGrupo();
             }
 
-            else
-            {
 
-                Grupo nuevoGrupo = (Grupo)cboGrupos.SelectedItem;
+            //if(cboGrupos.SelectedItem == null)
+            //{
+            //    await this.CargarListBoxConTodosLosAlumnos();
+            //}
 
-                await this.CargarListBoxConAlumnosPorGrupo(nuevoGrupo);
-            }
+            //else
+            //{
+
+            //    Grupo nuevoGrupo = (Grupo)cboGrupos.SelectedItem;
+
+            //    await this.CargarListBoxConAlumnosPorGrupo(nuevoGrupo);
+            //}
 
             
 
@@ -69,6 +82,8 @@ namespace WinFormsAppGrupos
 
         private async void btnAgregarAlGrupo_Click(object sender, EventArgs e)
         {
+            
+            
             Grupo grupoSeleccionado = (Grupo)cboGrupos.SelectedItem;
 
             Alumno alumnoSeleccionado = (Alumno)lstAlumnos.SelectedItem;
@@ -80,7 +95,11 @@ namespace WinFormsAppGrupos
 
             MessageBox.Show("Agregado con éxito");
 
+            
+
         }
+
+       
 
         private async void btnListarGrupos_Click(object sender, EventArgs e)
         {
@@ -90,8 +109,6 @@ namespace WinFormsAppGrupos
             List<Grupo> listaGrupos = JsonConvert.DeserializeObject<List<Grupo>>(content);
 
             dgvListarGrupos.DataSource = listaGrupos;
-
-
 
         }
 
@@ -169,7 +186,34 @@ namespace WinFormsAppGrupos
 
         }
 
+       private async Task CargarDataGridView()
+        {
+            string url = "https://localhost:7139/api/Grupos/gruposAlumnos";
+            var content = await Cliente.GetCliente().GetAsync(url);
 
+            List<Grupo> listaGruposConAlumnos = JsonConvert.DeserializeObject<List<Grupo>>(content);
+
+            foreach (var grupo in listaGruposConAlumnos)
+            {
+
+                dgvListarGrupos.Rows.Add(new object[] { grupo.Codigo, grupo.Nombre, grupo.ContarAlumnosEnLista() });
+
+            }
+        }
         
+        
+        
+        private async void dgvListarGrupos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            await CargarDataGridView();
+
+           
+        }
+
+        private void gbCrearGrupos_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

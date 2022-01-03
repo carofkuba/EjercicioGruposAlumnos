@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnCrearGrupos = new System.Windows.Forms.Button();
             this.gbCrearGrupos = new System.Windows.Forms.GroupBox();
             this.btnCrearGrupo = new System.Windows.Forms.Button();
@@ -49,12 +48,13 @@
             this.gbVerInfoGrupos = new System.Windows.Forms.GroupBox();
             this.btnListarGrupos = new System.Windows.Forms.Button();
             this.dgvListarGrupos = new System.Windows.Forms.DataGridView();
-            this.grupoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colGrupo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCantidadAlumnos = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbCrearGrupos.SuspendLayout();
             this.gbAdministrarGrupos.SuspendLayout();
             this.gbVerInfoGrupos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListarGrupos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCrearGrupos
@@ -75,10 +75,11 @@
             this.gbCrearGrupos.Controls.Add(this.lblNombreGrupo);
             this.gbCrearGrupos.Location = new System.Drawing.Point(289, 23);
             this.gbCrearGrupos.Name = "gbCrearGrupos";
-            this.gbCrearGrupos.Size = new System.Drawing.Size(1030, 225);
+            this.gbCrearGrupos.Size = new System.Drawing.Size(968, 219);
             this.gbCrearGrupos.TabIndex = 1;
             this.gbCrearGrupos.TabStop = false;
             this.gbCrearGrupos.Text = "Crear Grupos";
+            this.gbCrearGrupos.Enter += new System.EventHandler(this.gbCrearGrupos_Enter);
             // 
             // btnCrearGrupo
             // 
@@ -157,9 +158,9 @@
             this.gbAdministrarGrupos.Controls.Add(this.lstAlumnos);
             this.gbAdministrarGrupos.Controls.Add(this.cboGrupos);
             this.gbAdministrarGrupos.Controls.Add(this.lblGrupos);
-            this.gbAdministrarGrupos.Location = new System.Drawing.Point(289, 269);
+            this.gbAdministrarGrupos.Location = new System.Drawing.Point(289, 261);
             this.gbAdministrarGrupos.Name = "gbAdministrarGrupos";
-            this.gbAdministrarGrupos.Size = new System.Drawing.Size(1030, 388);
+            this.gbAdministrarGrupos.Size = new System.Drawing.Size(968, 380);
             this.gbAdministrarGrupos.TabIndex = 6;
             this.gbAdministrarGrupos.TabStop = false;
             this.gbAdministrarGrupos.Text = "Administrar Grupos";
@@ -225,16 +226,16 @@
             // 
             this.gbVerInfoGrupos.Controls.Add(this.btnListarGrupos);
             this.gbVerInfoGrupos.Controls.Add(this.dgvListarGrupos);
-            this.gbVerInfoGrupos.Location = new System.Drawing.Point(289, 678);
+            this.gbVerInfoGrupos.Location = new System.Drawing.Point(289, 663);
             this.gbVerInfoGrupos.Name = "gbVerInfoGrupos";
-            this.gbVerInfoGrupos.Size = new System.Drawing.Size(1030, 333);
+            this.gbVerInfoGrupos.Size = new System.Drawing.Size(968, 348);
             this.gbVerInfoGrupos.TabIndex = 8;
             this.gbVerInfoGrupos.TabStop = false;
             this.gbVerInfoGrupos.Text = "Información de Grupos";
             // 
             // btnListarGrupos
             // 
-            this.btnListarGrupos.Location = new System.Drawing.Point(15, 259);
+            this.btnListarGrupos.Location = new System.Drawing.Point(15, 286);
             this.btnListarGrupos.Name = "btnListarGrupos";
             this.btnListarGrupos.Size = new System.Drawing.Size(156, 47);
             this.btnListarGrupos.TabIndex = 1;
@@ -247,23 +248,49 @@
             this.dgvListarGrupos.AllowUserToAddRows = false;
             this.dgvListarGrupos.AllowUserToDeleteRows = false;
             this.dgvListarGrupos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListarGrupos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colId,
+            this.colGrupo,
+            this.colCantidadAlumnos});
             this.dgvListarGrupos.Location = new System.Drawing.Point(15, 39);
             this.dgvListarGrupos.Name = "dgvListarGrupos";
             this.dgvListarGrupos.ReadOnly = true;
             this.dgvListarGrupos.RowHeadersWidth = 62;
             this.dgvListarGrupos.RowTemplate.Height = 33;
-            this.dgvListarGrupos.Size = new System.Drawing.Size(871, 185);
+            this.dgvListarGrupos.Size = new System.Drawing.Size(917, 228);
             this.dgvListarGrupos.TabIndex = 0;
+            this.dgvListarGrupos.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvListarGrupos_CellContentClick);
             // 
-            // grupoBindingSource
+            // colId
             // 
-            this.grupoBindingSource.DataSource = typeof(ClassLibraryGrupos.Grupo);
+            this.colId.HeaderText = "Id";
+            this.colId.MinimumWidth = 8;
+            this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
+            this.colId.Visible = false;
+            this.colId.Width = 150;
+            // 
+            // colGrupo
+            // 
+            this.colGrupo.HeaderText = "Grupo";
+            this.colGrupo.MinimumWidth = 8;
+            this.colGrupo.Name = "colGrupo";
+            this.colGrupo.ReadOnly = true;
+            this.colGrupo.Width = 600;
+            // 
+            // colCantidadAlumnos
+            // 
+            this.colCantidadAlumnos.HeaderText = "Cantidad de Alumnos";
+            this.colCantidadAlumnos.MinimumWidth = 8;
+            this.colCantidadAlumnos.Name = "colCantidadAlumnos";
+            this.colCantidadAlumnos.ReadOnly = true;
+            this.colCantidadAlumnos.Width = 253;
             // 
             // FrmAdminGrupos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1348, 1023);
+            this.ClientSize = new System.Drawing.Size(1296, 1042);
             this.Controls.Add(this.gbVerInfoGrupos);
             this.Controls.Add(this.btnVerInfoGrupos);
             this.Controls.Add(this.gbAdministrarGrupos);
@@ -279,7 +306,6 @@
             this.gbAdministrarGrupos.PerformLayout();
             this.gbVerInfoGrupos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListarGrupos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grupoBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -306,6 +332,8 @@
         private System.Windows.Forms.GroupBox gbVerInfoGrupos;
         private System.Windows.Forms.DataGridView dgvListarGrupos;
         private System.Windows.Forms.Button btnListarGrupos;
-        private System.Windows.Forms.BindingSource grupoBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colGrupo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCantidadAlumnos;
     }
 }

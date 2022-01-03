@@ -28,6 +28,11 @@ namespace ClassLibraryGrupos
             return dao.GetGrupos();
         }
 
+        public List<Grupo> GetGruposConAlumnos()
+        {
+            return dao.GetGruposConAlumnos();
+        }
+
         public List<Alumno> GetAlumnos()
         {
             DataTable tabla = dao.GetTablaEnDataTable("Alumnos");
